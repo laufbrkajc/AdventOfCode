@@ -1,0 +1,6 @@
+*.txt
+*.class
+*.jar
+*/target/*
+*/.idea/
+*.classpath
