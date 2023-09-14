@@ -4,6 +4,7 @@ import java.util.Objects;
 import java.util.ArrayList;
 
 public class Directory {
+    Directory parent = null;
     private String name;
 	private int ID;
     private ArrayList<File> files = new ArrayList<File>();
@@ -11,6 +12,12 @@ public class Directory {
     public Directory(int id, String nn) {
         this.ID = id;
         this.name = nn;
+    }
+
+    public Directory(int id, String nn, Directory pp) {
+        this.ID = id;
+        this.name = nn;
+        this.parent = pp;
     }
 
     public String getName() {
@@ -34,7 +41,7 @@ public class Directory {
     public String toString() {
         return "Directory{" +
                 "name='" + name + '\'' +
-                ", ID=" +
+                ", ID=" + ID +
                 '}';
     }
 
