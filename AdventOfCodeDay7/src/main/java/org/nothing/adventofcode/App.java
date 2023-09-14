@@ -4,27 +4,24 @@ import com.google.common.graph.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 public class App 
 {
     public static void main(String[] args)
     {
-        var dirA = new Directory(0, "root");
-        var dirB = new Directory(1, "etc");
-        var dirC = new Directory(2, "home");
-        var dirD = new Directory(3, "madrad");
+        var scanner = new Scanner(System.in);
+        String line = "";
 
-        dirB.getFiles().add(new File("wgetrc", 1024));
-        dirC.getFiles().add(new File("users", 78));
-        dirD.getFiles().add(new File(".bashrc", 24));
+        while (scanner.hasNext()) {
+            line = scanner.nextLine();
+            Pattern cd = Pattern.compile("\\$ cd ");
+            Pattern ls = Pattern.compile("\\$ ls ");
 
-        MutableGraph<Directory> dirTree = GraphBuilder.directed().build();
-
-        dirTree.putEdge(dirA, dirB);
-        dirTree.putEdge(dirA, dirC);
-        dirTree.putEdge(dirC, dirD);
-
-        System.out.println(du(dirTree, dirC));
+            if (line.matches(cd.pattern())) {
+                String name = line.substring(4);
+            }
+        }
     }
     
     public static double du(Graph<Directory> dirGraph, Directory startingDirectory)
