@@ -31,6 +31,14 @@ public class Directory {
     }
 
     @Override
+    public String toString() {
+        return "Directory{" +
+                "name='" + name + '\'' +
+                ", ID=" +
+                '}';
+    }
+
+    @Override
     public boolean equals(final Object o) {
         if (this == o) {
             return true;
