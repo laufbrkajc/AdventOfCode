@@ -3,6 +3,7 @@ package org.nothing.adventofcode;
 import com.google.common.graph.*;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Scanner;
 
@@ -51,20 +52,20 @@ public class App
                 String[] parts = line.split(" ");
                 File file = new File(parts[1], Double.parseDouble(parts[0]));
                 currentDir.getFiles().add(file);
-            } else {
-//                System.out.println("Unhandled case:");
-//                System.out.println("  |>" + line);
             }
         }
 
-        double totalSelectedDirSize = 0;
-        for (Directory dir : directoryGraph.nodes()) {
-            var dirSize = du(directoryGraph, dir);
-            if (dirSize < 100000)
-                totalSelectedDirSize += dirSize;
+        var allDirs = new ArrayList<>(directoryGraph.nodes());
+        double smallestPossible = Double.MAX_VALUE;
+        for (Directory dir : allDirs) {
+            double dirSize = du(directoryGraph, dir);
+            if (dirSize >= 4795677 && dirSize < smallestPossible)
+                smallestPossible = dirSize;
         }
 
-        System.out.println("Total size of directories under 100k: " + totalSelectedDirSize);
+        System.out.println("The size of the directory to be removed is " +
+                            smallestPossible
+                          );
     }
     
     public static double du(Graph<Directory> dirGraph, Directory startingDirectory)
