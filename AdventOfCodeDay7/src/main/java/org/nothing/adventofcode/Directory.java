@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.ArrayList;
 
 public class Directory {
-    Directory parent = null;
+    private Directory parent = null;
     private String name;
 	private int ID;
     private ArrayList<File> files = new ArrayList<File>();
@@ -18,6 +18,14 @@ public class Directory {
         this.ID = id;
         this.name = nn;
         this.parent = pp;
+    }
+
+    public Directory getParent() {
+        return parent;
+    }
+
+    public void setParent(Directory parent) {
+        this.parent = parent;
     }
 
     public String getName() {
@@ -63,4 +71,3 @@ public class Directory {
         return Objects.equals(hashCode(), otherDir.hashCode());
     }
 }
-
