@@ -42,7 +42,7 @@ public class Directory {
 
     @Override
     public int hashCode() {
-        return Objects.hash(files, ID);
+        return Objects.hash(name, ID);
     }
 
     @Override
