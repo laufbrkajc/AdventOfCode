@@ -3,8 +3,8 @@ package org.nothing.adventofcode;
 import com.google.common.graph.*;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.LinkedHashSet;
 import java.util.Scanner;
-import java.util.Set;
 
 public class App 
 {
@@ -34,7 +34,11 @@ public class App
                 String name = line.substring(5);
 
                 newDir = new Directory(dirCount, name, currentDir);
-                directoryGraph.putEdge(currentDir, newDir);
+                directoryGraph.addNode(newDir);
+                directoryGraph.addNode(currentDir);
+                if (!directoryGraph.putEdge(currentDir, newDir)) {
+                    System.out.println("Problem adding edge.");
+                }
                 currentDir = newDir;
 
             } else if (line.matches("\\$ cd \\.\\.")) {
@@ -48,16 +52,24 @@ public class App
                 File file = new File(parts[1], Double.parseDouble(parts[0]));
                 currentDir.getFiles().add(file);
             } else {
-                System.out.println("Unhandled case:");
-                System.out.println("  |>" + line);
+//                System.out.println("Unhandled case:");
+//                System.out.println("  |>" + line);
             }
         }
 
+        double totalSelectedDirSize = 0;
+        for (Directory dir : directoryGraph.nodes()) {
+            var dirSize = du(directoryGraph, dir);
+            if (dirSize < 100000)
+                totalSelectedDirSize += dirSize;
+        }
+
+        System.out.println("Total size of directories under 100k: " + totalSelectedDirSize);
     }
     
     public static double du(Graph<Directory> dirGraph, Directory startingDirectory)
     {
-        Set<Directory> successors = dirGraph.successors(startingDirectory);
+        var successors = new LinkedHashSet<Directory>(dirGraph.successors(startingDirectory));
         double totalFileSize = 0;
         
         if (!successors.isEmpty()) {
