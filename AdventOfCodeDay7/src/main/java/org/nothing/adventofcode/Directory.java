@@ -68,6 +68,6 @@ public class Directory {
         }
 
         Directory otherDir = (Directory) o;
-        return Objects.equals(hashCode(), otherDir.hashCode());
+        return this.hashCode() == otherDir.hashCode();
     }
 }
